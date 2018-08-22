@@ -19,6 +19,11 @@ if (false === is_admin()) {
 } else {
     add_action('admin_menu', 'eu_cookie_menu');
     add_filter('plugin_action_links_'. plugin_basename(__FILE__), 'eu_cookie_settings_link');
+
+    add_action('admin_init', function() {
+        register_setting('eu-cookie-settings', 'eu_cookie_bg_color');
+        register_setting('eu-cookie-settings', 'eu_cookie_message');
+    });
 }
 
 function eu_cookie_register_assets() {

@@ -1,4 +1,4 @@
-<div class="cookie-msg">
+<div class="cookie-msg" style="background-color: <?= get_option('eu_cookie_bg_color'); ?>">
     <div class="cookie-close"></div>
-    <div class="cookie-content">Thsi site uses cookies</div>
+    <div class="cookie-content"><?= get_option('eu_cookie_message'); ?></div>
 </div>
