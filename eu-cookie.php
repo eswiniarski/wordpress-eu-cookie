@@ -18,6 +18,7 @@ if (false === is_admin()) {
     add_action('wp_footer', 'eu_cookie_load_message_html', 100);
 } else {
     add_action('admin_menu', 'eu_cookie_menu');
+    add_filter('plugin_action_links_'. plugin_basename(__FILE__), 'eu_cookie_settings_link');
 }
 
 function eu_cookie_register_assets() {
@@ -30,7 +31,7 @@ function eu_cookie_register_assets() {
 
 function eu_cookie_load_message_html() {
     ob_start();
-    include($GLOBALS['eu_cookie_dir_path'] . 'template/default.php');
+    include($GLOBALS['eu_cookie_dir_path'] . 'templates/message-box.php');
     $content = ob_get_contents();
     ob_end_clean();
 
@@ -47,6 +48,13 @@ function eu_cookie_menu() {
 	);
 }
 
+function eu_cookie_settings_link($links) {
+    $settings_link = '<a href="options-general.php?page=eu-cookie.php">Settings</a>';
+
+    array_push($links, $settings_link);
+    return $links;
+}
+
 function eu_cookie_page() {
-    echo 'EU Cookie settings';
+    require_once $GLOBALS['eu_cookie_dir_path'] . 'templates/admin.php';
 }
