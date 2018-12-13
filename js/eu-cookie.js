@@ -1,20 +1,34 @@
-jQuery(function ($) {
-    var euCookie = {
-        init() {
-            if (localStorage.euCookie != 1) {
-                $(".cookie-msg").addClass('show');
-            }
+var euCookieBar = function () {
+    var msg = undefined;
 
-            $(".cookie-msg .cookie-close").click(function() {
-                euCookie.close();
-            });
-        },
+    function init() {
+        this.msg = document.getElementById('euCookieBar');
 
-        close() {
-            $(".cookie-msg").removeClass('show');
-            localStorage.euCookie = 1;
-        },
-    };
+        if (localStorage.euCookieBar != 1) {
+            this.show();
+        }
 
-    euCookie.init();
+        this.msg.querySelector('.cookie-close').addEventListener('click', function() {
+            euCookieBar.hide();
+        });
+    }
+
+    function show() {
+        this.msg.classList.add('show');
+    }
+
+    function hide() {
+        localStorage.euCookieBar = 1;
+        this.msg.classList.remove('show');
+    }
+
+    return {
+        init: init,
+        show: show,
+        hide: hide
+    }
+}();
+
+document.addEventListener("DOMContentLoaded", function() {
+    euCookieBar.init();
 });

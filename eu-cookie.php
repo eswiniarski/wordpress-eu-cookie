@@ -2,7 +2,7 @@
 /**
  * Plugin Name: EU Cookie
  * Description: EU cookie info plugin
- * Version: 1.0
+ * Version: 1.1
  * Author: Emil Świniarski
  */
 
@@ -30,7 +30,7 @@ function eu_cookie_register_assets() {
     wp_register_style('eu-cookie', $GLOBALS['eu_cookie_dir_url'] . 'css/eu-cookie.css');
     wp_enqueue_style('eu-cookie');
 
-    wp_register_script('eu-cookie', $GLOBALS['eu_cookie_dir_url'] . 'js/eu-cookie.js');
+    wp_register_script('eu-cookie', $GLOBALS['eu_cookie_dir_url'] . 'js/eu-cookie.js', [], false, true);
     wp_enqueue_script('eu-cookie');
 }
 
