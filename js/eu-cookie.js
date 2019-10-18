@@ -14,12 +14,12 @@ var euCookieBar = function () {
     }
 
     function show() {
-        this.msg.classList.add('show');
+        this.msg.classList.add('show', 'animated');
     }
 
     function hide() {
         localStorage.euCookieBar = 1;
-        this.msg.classList.remove('show');
+        this.msg.classList.remove('show', 'animated');
     }
 
     return {
