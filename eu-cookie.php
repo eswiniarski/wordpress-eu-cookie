@@ -14,24 +14,36 @@ $eu_cookie_dir_url = plugin_dir_url(__FILE__);
 $eu_cookie_dir_path = plugin_dir_path(__FILE__);
 
 if (false === is_admin()) {
-    add_action('wp_enqueue_scripts', 'eu_cookie_register_assets', 100);
+    add_action('wp_enqueue_scripts', 'eu_cookie_register_front_assets', 100);
     add_action('wp_footer', 'eu_cookie_load_message_html', 100);
 } else {
     add_action('admin_menu', 'eu_cookie_menu');
     add_filter('plugin_action_links_'. plugin_basename(__FILE__), 'eu_cookie_settings_link');
 
     add_action('admin_init', function() {
+        register_setting('eu-cookie-settings', 'eu_cookie_text_color');
         register_setting('eu-cookie-settings', 'eu_cookie_bg_color');
+        register_setting('eu-cookie-settings', 'eu_cookie_animation_type');
         register_setting('eu-cookie-settings', 'eu_cookie_message');
     });
+
+    add_action('admin_enqueue_scripts', 'eu_cookie_register_admin_assets', 100);
 }
 
-function eu_cookie_register_assets() {
+function eu_cookie_register_front_assets() {
     wp_register_style('eu-cookie', $GLOBALS['eu_cookie_dir_url'] . 'css/eu-cookie.css');
     wp_enqueue_style('eu-cookie');
 
+    wp_register_style('animate', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css');
+    wp_enqueue_style('animate');
+
     wp_register_script('eu-cookie', $GLOBALS['eu_cookie_dir_url'] . 'js/eu-cookie.js', [], false, true);
     wp_enqueue_script('eu-cookie');
+}
+
+function eu_cookie_register_admin_assets() {
+    wp_register_script('eu-cookie-admin', $GLOBALS['eu_cookie_dir_url'] . 'js/eu-cookie-admin.js', [], false, true);
+    wp_enqueue_script('eu-cookie-admin');
 }
 
 function eu_cookie_load_message_html() {
